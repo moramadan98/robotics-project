@@ -59,7 +59,6 @@ from sympy import symbols, Eq, solve
 #2 revolute joints   2D geometry
 def get_ik_RR(x,y):
   D = (((x)**2)+((y)**2)-((DH[0][0])**2) -((DH[1][0])**2))/(2*(DH[0][0])*(DH[1][0]))
-  print(D)
   point1_var2 = math.degrees(math.atan((math.sqrt(1-(D)**2))/ D))
   point2_var2 = math.degrees(math.atan((-math.sqrt(1-D**2))/ D))
   point1_var1 = (math.degrees(math.atan(y/x))) - math.degrees(math.atan((DH[1][0]*math.floor(math.sin(math.radians(point1_var2))))/(DH[0][0] +DH[1][0]*math.floor(math.cosh(math.radians(point1_var2))) )))
@@ -87,10 +86,8 @@ def get_ik_PP():
   d1 = (const3 - b3*d2)/a3
   return d2,d1
 
-
-
-
-####################################################################################
+##################################################################################################
+#trajectory
 ti = [0.0 , math.pi/8 , math.pi/4]
 x=[]
 y=[]
@@ -118,6 +115,24 @@ for j in range(len(x)):
   theta2_v1.append(th2_v1)
   theta2_v2.append(th2_v2)
   
+q1= np.array((2,1))
+q1[1][1] = theta1_v1[0]
+q1[2][1] = theta2_v1[0]
+
+q2= np.array((2,1))
+q2[1][1] = theta1_v1[1]
+q2[2][1] = theta2_v1[1]
+
+q3= np.array((2,1))
+q3[1][1] = theta1_v1[2]
+q3[2][1] = theta2_v1[2]
+
+ 
+
+dh_1 = np.concatenate(DH,q1)
+dh_2 = np.concatenate(DH,q2)
+dh_3 = np.concatenate(DH,q3)
+
 
 
 print("-------------------------------------------------")

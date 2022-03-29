@@ -71,7 +71,7 @@ def get_final_FK():
    C=np.dot(C,B)
   return C
 
-print(get_final_FK())
+#print(get_final_FK())
 
 matrix = get_final_FK();
 # getting position 
